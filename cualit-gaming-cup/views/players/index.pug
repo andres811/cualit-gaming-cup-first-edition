@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  h1= "Cualit Gaming Cup"
+  p Jugadores
+  ul
+  each val in players
+    li= val.name

@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Nuevo Jugador
+        form(method='POST' action='/players')
+          div.form-group
+            label(for='email') Nombre
+            input.form-control(type='text' id='name' placeholder='Nombre' name='name')
+          button.btn.btn-primary(type='submit') Agregar
