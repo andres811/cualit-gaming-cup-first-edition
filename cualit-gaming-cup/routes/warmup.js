@@ -13,6 +13,7 @@ router.get('/new', function(req, res, next) {
     res.render('warmup/new', { players: players, groups: teamHelper.buildWarpUpGroups(players)})
   })
   .catch(e => {})
+
 })
 
 router.post('/', function(req, res, next) {

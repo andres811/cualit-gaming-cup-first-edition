@@ -61,10 +61,6 @@ db.once('open', function (callback) {
     console.log('successfully connected to mongodb');
 });
 
-let Player = require("./models/player")
-let  p = new Player({name: "Andrés"})
-//p.save()
-
 Array.prototype.shuffle = function() {
   var i = this.length, j, temp;
   if ( i == 0 ) return this;
@@ -87,3 +83,78 @@ Array.prototype.groupBy = function(prop) {
 }
 
 module.exports = app;
+
+
+
+
+let Player = require('./models/player')
+return Player.find()
+.then(players => {
+  var jsCombinatorics = require("js-combinatorics")
+  //let playersNum = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+  let total = 0
+  for(let i = 0; i < 6; i++) {
+    total += players[i].getTotalScore()
+  }
+  let perfectGroupScore = total/6
+  let playersNum = [0,1,2,3,4,5]
+  let lastGrouping = []
+  let minDiff = Infinity
+  let perfectGroup
+  try {
+
+  grouping([], playersNum)
+} catch(e){console.error(e)}
+  function grouping(scores, playersNum, fixedPlayers) {
+    console.log(scores, playersNum, fixedPlayers)
+    scores = scores || []
+    fixedPlayers = fixedPlayers || []
+    if(playersNum.length === 0) {
+      let diff = 0
+      /*for(let k = 0; k < scores.length; k++) {
+        diff += Math.abs(perfectGroupScore - scores[k])
+        if(minDiff > diff) {
+          minDiff = diff
+          perfectGroup = fixedPlayers
+        }
+      }*/
+      
+      if(minDiff > diff) {
+        minDiff = diff
+        perfectGroup = fixedPlayers
+      }
+      return
+    }
+
+    let g = jsCombinatorics.bigCombination( playersNum  , 3 )
+    for(var i = 0; i < g.length; i++) {
+      let copyPlayersNum = playersNum.slice();
+
+      let group = g.next()
+      let totalGroupScore = 0
+      for(var j = 0; j < 3; j++) {
+        totalGroupScore += players[group[j]].getTotalScore()
+        copyPlayersNum.splice(copyPlayersNum.indexOf(group[j]), 1)
+      }
+      if(!copyPlayersNum.length) {
+
+        scores.push(totalGroupScore)
+      }
+      grouping(scores, copyPlayersNum, fixedPlayers.concat(group))
+
+    }
+  }
+  console.log(minDiff, perfectGroup)
+  return
+  var places = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17]]
+  var teams = [0,0,0,0,0,0]
+  var moving = 0
+
+  for(var i = 0; i < 6; i++) {
+
+  }
+  for(var i in players) {
+    var player = players[i]
+  }
+})
+.catch(e => {})
