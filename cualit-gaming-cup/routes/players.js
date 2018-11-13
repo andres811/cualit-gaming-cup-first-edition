@@ -14,12 +14,16 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.get('/create', function(req, res, next) {
-  res.render('players/create')
+router.get('/new', function(req, res, next) {
+  res.render('players/new')
 });
 
 router.post('/', function(req, res, next) {
-  (new Player(req.body)).save().then(p=> res.render('players/create')).catch(e=>{})
+  let names = req.body.name.split('\n').filter(n => !!n)
+  let players = names.map(n => {return {name: n}})
+  Player.insertMany(players)
+  .then(p=> res.render('players/new'))
+  .catch(e=>{})
 })
 
 

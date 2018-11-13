@@ -4,19 +4,13 @@ let _ = require('underscore')
 let Player = require("../models/player")
 let ObjectId = require('mongodb').ObjectID;
 let teamHelper = require('../helpers/team-helper')
+let scoreHelper = require('../helpers/score-helper')
 
 /* GET players listing. */
 router.get('/create', function(req, res, next) {
-  Player.find()
+  return Player.find()
   .then(players => {
-    let playersQuantity = players.length
-    let maxPlayersPerRace = 4
-    let minPlayersPerRace = 3
-    let surplusPlayersQuantity = playersQuantity % maxPlayersPerRace
-    let numberOfRaces = Math.ceil(playersQuantity / maxPlayersPerRace)
-
-    let groups = _.groupBy(players.shuffle(), (p, i) => (i % numberOfRaces)+1)
-    res.render('warmup/create', { players: players, groups: groups})
+    res.render('warmup/new', { players: players, groups: teamHelper.buildWarpUpGroups(players)})
   })
   .catch(e => {})
 })
@@ -29,25 +23,23 @@ router.post('/', function(req, res, next) {
     if(score && parseInt(score)) {
       scores.push({
         playerId: data[1],
-        score: score,
+        score: parseInt(score),
         race: data[0]
       })
     }
   }
-  console.log(_.max(scores.filter(s => s.race == '1'), e => e.score))
-  return
   Promise.all(scores.map((scoreData) => {
     return Player.findOne(ObjectId(scoreData.playerId))
     .then(p => {
       if(!p.warm_up_scores) p.warm_up_scores = []
-      p.warm_up_scores.push(scoreData.score)
+      p.warm_up_scores.push(scoreHelper.normalizeScore(scoreData.score, _.max(scores.filter(s => s.race == scoreData.race), e => e.score).score))
       return p.save()
     })
   }))
   .then(()=> {
     return Player.find()
     .then(players => {
-      res.render('warmup/create', { players: players, groups: teamHelper.buildWarpUpGroups(players)})
+      res.render('warmup/new', { players: players, groups: teamHelper.buildWarpUpGroups(players)})
     })
 
   })
