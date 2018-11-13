@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+.players-container {
+  width: 300px;
+}
+.player {
+  width: 100%;
+  float: left;
+  border: 1px solid black;
+}
+.player > div {
+  float: left;
+  width: 50%
+}

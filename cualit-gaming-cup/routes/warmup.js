@@ -7,7 +7,7 @@ let teamHelper = require('../helpers/team-helper')
 let scoreHelper = require('../helpers/score-helper')
 
 /* GET players listing. */
-router.get('/create', function(req, res, next) {
+router.get('/new', function(req, res, next) {
   return Player.find()
   .then(players => {
     res.render('warmup/new', { players: players, groups: teamHelper.buildWarpUpGroups(players)})

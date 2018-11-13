@@ -3,6 +3,16 @@ extends ../layout
 block content
   h1= "Cualit Gaming Cup"
   p Jugadores
-  ul
-  each val in players
-    li= val.name
+  div.players-container
+    each player in players
+      div.player
+        div
+          b
+            p= player.name
+        div
+          p Calentamiento
+            ul
+            each scores in player.warm_up_scores
+              li= scores
+            b
+              p= "Total: " + player.warm_up_scores.reduce((s1,s2) => s1+s2, 0).toFixed(2)
