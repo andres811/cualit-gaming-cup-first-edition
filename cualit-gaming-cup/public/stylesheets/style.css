@@ -8,7 +8,7 @@ a {
 }
 
 .players-container {
-  width: 300px;
+  width: 600px;
 }
 .player {
   width: 100%;
@@ -17,5 +17,5 @@ a {
 }
 .player > div {
   float: left;
-  width: 50%
+  width: 33%
 }

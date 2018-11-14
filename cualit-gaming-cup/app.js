@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var playersRouter = require('./routes/players');
 var warmupRouter = require('./routes/warmup');
+var teamsRouter = require('./routes/teams');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/players', playersRouter);
 app.use('/warmup', warmupRouter);
+app.use('/teams', teamsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,12 +87,13 @@ Array.prototype.groupBy = function(prop) {
 module.exports = app;
 
 
-
+return
 
 let Player = require('./models/player')
 return Player.find()
 .then(players => {
-  var jsCombinatorics = require("js-combinatorics")
+
+
   //let playersNum = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
   let total = 0
   for(let i = 0; i < 6; i++) {
@@ -101,9 +104,16 @@ return Player.find()
   let lastGrouping = []
   let minDiff = Infinity
   let perfectGroup
+
+  var jsCombinatorics = require("js-combinatorics")
+  let g = jsCombinatorics.cartesianProduct( playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum,playersNum )
+
+  console.log(g.length)
+
+
   try {
 
-  grouping([], playersNum)
+  //grouping([], playersNum)
 } catch(e){console.error(e)}
   function grouping(scores, playersNum, fixedPlayers) {
     console.log(scores, playersNum, fixedPlayers)
@@ -118,7 +128,7 @@ return Player.find()
           perfectGroup = fixedPlayers
         }
       }*/
-      
+
       if(minDiff > diff) {
         minDiff = diff
         perfectGroup = fixedPlayers

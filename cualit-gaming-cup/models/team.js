@@ -3,14 +3,13 @@ let mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId
 
-let PlayerSchema = new Schema({
+let TeamSchema = new Schema({
     name:  {type: String, required: true},
-    warm_up_scores: [{type: Number}],
-    team: {type: ObjectId, ref: 'Team'}
+    players: [{type: ObjectId, ref: 'Player'}]
 });
 
-PlayerSchema.methods.getTotalScore = function() {
+TeamSchema.methods.getTotalScore = function() {
   return this.warm_up_scores.reduce((s1, s2) => s1 + s2, 0)
 }
 
-module.exports = mongoose.model('Player', PlayerSchema);
+module.exports = mongoose.model('Team', TeamSchema);

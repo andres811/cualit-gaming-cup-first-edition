@@ -4,15 +4,26 @@ block content
   h1= "Cualit Gaming Cup"
   p Jugadores
   div.players-container
-    each player in players
+    form(method='POST' action='/teams')
+      each player in players
+        div.player
+          div
+            b
+              p= player.name
+          div
+            p Calentamiento
+              ul
+              each scores in player.warm_up_scores
+                li= scores
+              b
+                p= "Total: " + player.warm_up_scores.reduce((s1,s2) => s1+s2, 0).toFixed(2)
+          div
+            p Team
+            input.form-control(type='text' id='name' placeholder='Team' name=player.id value=player.team && player.team.name)
       div.player
         div
-          b
-            p= player.name
+          p -
         div
-          p Calentamiento
-            ul
-            each scores in player.warm_up_scores
-              li= scores
-            b
-              p= "Total: " + player.warm_up_scores.reduce((s1,s2) => s1+s2, 0).toFixed(2)
+          p -
+        div
+          button.btn.btn-primary(type='submit') Agregar

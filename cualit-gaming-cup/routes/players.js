@@ -4,9 +4,8 @@ let Player = require("../models/player")
 
 /* GET players listing. */
 router.get('/', function(req, res, next) {
-  Player.find()
+  Player.find().populate('team')
   .then(players =>{
-
     res.render('players/index', { players: players});
   })
   .catch(e => {
