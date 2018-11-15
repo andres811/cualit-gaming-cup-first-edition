@@ -17,7 +17,6 @@ router.post('/', function(req, res, next) {
   newData = _.groupBy(newData, (d) => {
       return d.team || 'remove'
   })
-  console.log(newData)
   asyncEach(Object.keys(newData), (key, i, next)=> {
 
     return asyncEach(newData[key], (data, j, nextPlayer)=> {
@@ -69,14 +68,26 @@ router.post('/', function(req, res, next) {
   },() => {
     return res.redirect("players");
   })
+})
 
-
-  return
-  return Player.find()
-  .then(players => {
-    res.render('warmup/new', { players: players, groups: teamHelper.buildWarpUpGroups(players)})
+router.get('/', function(req, res, next) {
+  Team.find().populate('players')
+  .then(teams => {
+    _.each(teams, (team, i) => {
+      _.each(team.players, (player, j) => {
+        _.each(team.scores, (score, k) => {
+          _.each(score.personal_scores, (personalScore, l) => {
+            if(player._id.equals(personalScore.player)) {
+              if(!team.players[j].scores) team.players[j].scores = []
+              teams[i].players[j].scores.push(personalScore.normalized_score)
+            }
+          })
+        })
+      })
+    })
+    res.render('teams/index', {teams: teams.sort(t => t.getTotalScore() * -1)})
   })
-  .catch(e => {})
+  .catch(e => {console.error(e)})
 })
 
 module.exports = router;
