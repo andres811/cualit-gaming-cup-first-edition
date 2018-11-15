@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1= "Cualit Gaming Cup"
+  p= "Clasificatoria: " + qualifying._id
+  div.races-container
+    form(method='POST' action='/qualifiers/'+ qualifying._id)
+      each race, raceId in qualifying.races
+        div.race
+          div.track
+            p= race.track
+          each participant in race.participants
+            div
+              p= participant.player.name
+            div
+              input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
+      button.btn.btn-primary(type='submit') Guardar

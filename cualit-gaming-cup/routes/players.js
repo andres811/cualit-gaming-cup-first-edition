@@ -6,7 +6,8 @@ let Player = require("../models/player")
 router.get('/', function(req, res, next) {
   Player.find().populate('team')
   .then(players =>{
-    res.render('players/index', { players: players});
+    console.log(players.sort(p => {return p.team.name}))
+    res.render('players/index', { players: players.sort(function (a, b) {if (a.team.name > b.team.name) { return 1; } if (a.team.name < b.team.name) {return -1;} return 0;})})
   })
   .catch(e => {
 

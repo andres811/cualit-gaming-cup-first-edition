@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  h1= "Cualit Gaming Cup"
+  p Equipos
+  div.players-container
+    form(method='POST' action='/teams')
+      each team in teams
+        p= team.name + " - " + team._id
+        each player in team.players
+          div.player
+            div
+              b
+                p= player.name
+            div
+              p Scores
+                ul
+                each scores in []
+                  li= scores
+                b
+                  p= "Total: " + team.getTotalScore()
+
+        div.player
+          div
+            p -
+          div
+            b
+              p= "Total: " + team.getTotalScore()

@@ -19,3 +19,24 @@ a {
   float: left;
   width: 33%
 }
+
+.races-container {
+  padding: 5px;
+  width: 600px;
+}
+
+.race {
+  padding: 5px;
+  width: 100%;
+  float: left;
+  border: 1px solid black;
+}
+
+.race > div {
+  float: left;
+  width: 50%;
+  height: 50px;
+}
+.track {
+  width: 100% !important
+}
