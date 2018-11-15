@@ -13,18 +13,21 @@ let asyncEach = require('../libs/async-each')
 
 router.get('/new', function(req, res, next) {
   Team.find().populate('players')
-  .then(teams => {
+  .then(_teams => {
     playerQtyPerRace = 6
     numberOfRaces = 4
     races = []
-    for(var i in teams) {
-      let team = teams[i]
-      if(team.players )
-        team.players = team.players.shuffle()
+    let teams = []
+    for(let i in _teams) {
+      let team = _teams[i]
+      if(team.players && team.players.length ) {
+          team.players = team.players.shuffle()
+          teams.push(team);
+      }
     }
-    for(var i = 0; i < numberOfRaces; i++) {
+    for(let i = 0; i < numberOfRaces; i++) {
       let race = {participants: []}
-      for(var j = 0; j < playerQtyPerRace; j++) {
+      for(let j = 0; j < Math.min(playerQtyPerRace, teams.length); j++) {
         let team = teams[j]
         race.participants.push({player: team.players[i % team.players.length]})
         race.track = raceHelper.getRandomTrack()
@@ -37,7 +40,9 @@ router.get('/new', function(req, res, next) {
   .then(qualifying => {
     res.render('qualifiers/new', {qualifying: qualifying})
   })
-  .catch(e => {})
+  .catch(e => {
+    console.error(e)
+  })
 })
 // update
 router.post('/:id', function(req, res, next) {
@@ -102,7 +107,7 @@ router.post('/:id', function(req, res, next) {
 
     res.render('qualifiers/new', {qualifying: qualifying})
   })
-  .catch(e => {})
+  .catch(e => {console.error(e)})
 })
 
 router.get('/:id', function(req, res, next) {
@@ -110,7 +115,7 @@ router.get('/:id', function(req, res, next) {
   .then(qualifying => {
     res.render('qualifiers/new', {qualifying: qualifying})
   })
-  .catch(e => {})
+  .catch(e => {console.error(e)})
 })
 
 
