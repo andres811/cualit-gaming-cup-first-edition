@@ -40,7 +40,6 @@ a {
 
 .race > div {
   float: left;
-  width: 45%;
   height: 50px;
 }
 .track {
@@ -58,5 +57,22 @@ a {
   padding: 20px 20px 0 0;
 }
 .totals {
-  text-align: center
+  text-align: center;
+  font-size: 20px;
+}
+.score-input {
+  /*padding: 5px 0;*/
+}
+.participant {
+  width: 100%;
+  float: left;
+  padding: 5px;
+}
+
+.participant  > div {
+  float: left;
+  width: 50%;
+}
+.participant > .score-input {
+  padding-top: 11px;
 }

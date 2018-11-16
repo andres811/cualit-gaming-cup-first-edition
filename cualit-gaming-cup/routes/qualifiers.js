@@ -11,7 +11,8 @@ let raceHelper = require('../helpers/race-helper')
 let asyncEach = require('../libs/async-each')
 
 
-router.get('/new', function(req, res, next) {
+router.get('/new/:type?', function(req, res, next) {
+  let type = req.params.type
   Team.find().populate('players')
   .then(_teams => {
     playerQtyPerRace = 6
@@ -30,7 +31,7 @@ router.get('/new', function(req, res, next) {
       for(let j = 0; j < Math.min(playerQtyPerRace, teams.length); j++) {
         let team = teams[j]
         race.participants.push({player: team.getPlayerForRace(), team: team})
-        race.track = raceHelper.getRandomTrack()
+        race.track = type === 'battle'? raceHelper.getRandomBattleTrack(): raceHelper.getRandomTrack()
       }
       races.push(race)
     }
