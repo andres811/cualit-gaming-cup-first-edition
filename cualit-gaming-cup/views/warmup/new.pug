@@ -1,14 +1,18 @@
 extends ../layout
 
 block content
-  h1= "Cualit Gaming Cup"
+
   form(method='POST' action='/warmup')
     each group, key in groups
-      p= key + " - " + getTrack()
-      ul
-      each p in group
-        li= p.name
-        input.form-control(type='number' id='name' placeholder='Puntaje' name=key+'_'+p.id)
+      b
+        p= key + " - " + getTrack()
+      div.col-12.item-container
+        each p in group
+          div.row
+            div.col-6
+              p= p.name
+            div.col-6
+              input.form-control(type='number' id='name' placeholder='Puntaje' name=key+'_'+p.id)
 
     button.btn.btn-primary(type='submit' onClick="createWarmUpRace()")  Guardar
   script.

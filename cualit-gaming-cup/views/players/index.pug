@@ -1,15 +1,16 @@
 extends ../layout
 
 block content
-  h1= "Cualit Gaming Cup"
-  p Jugadores
+  div.col-12
+  h4.page-title Jugadores
+  hr.hr-primary
   div.players-container
     form(method='POST' action='/teams')
       each player in players
-        div.player
+        div.player.bg-middle
           div
             b
-              p= player.name
+              p.text-primary= player.name
           div
             p Calentamiento
               ul
@@ -26,4 +27,4 @@ block content
         div
           p -
         div
-          button.btn.btn-primary(type='submit') Agregar
+          button.btn.btn-primary(type='submit') Guardar

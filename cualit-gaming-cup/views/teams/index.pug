@@ -1,18 +1,20 @@
 extends ../layout
 
 block content
-  h1= "Cualit Gaming Cup"
-  p Teams
+  h4.page-title Teams
+  hr.hr-primary
   div.players-container
     form(method='POST' action='/teams')
       each team,index in teams
-        div.team
-          div= "#" + (index + 1) + " - Team: " + team.name + " - " + team._id
+        div
+          b
+            div= "#" + (index + 1)  +" "+ team.name.toUpperCase() +" "+ team.id
+          div.blank-space-20
           each player in team.players
             div.player
               div
                 b
-                  p= player.name
+                  p.text-primary= player.name
               div
                 p Scores
                   ul

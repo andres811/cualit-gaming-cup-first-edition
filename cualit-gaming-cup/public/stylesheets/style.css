@@ -19,16 +19,17 @@ a {
   width: 100%;
   height:100%;
   float: left;
-  border: 1px solid black;
+  padding: 20px;
+    margin-bottom: 20px;
+    background-color: #4B535C ;
+
 }
 .player > div {
   float: left;
   width: 33%
 }
 
-.races-container {
-  width: 600px;
-}
+
 
 .race {
   padding: 5px;
@@ -75,4 +76,38 @@ a {
 }
 .participant > .score-input {
   padding-top: 11px;
+}
+.magin-top-100{
+    margin-top:100px;
+}
+.magin-top-70{
+    margin-top:70px;
+}
+
+.item-container{
+    margin-bottom: 20px;
+    background-color: #4B535C ;
+    padding: 20px;
+}
+.item-container  .row{
+    margin-bottom: 20px;
+
+}
+.blank-space-20{
+    height: 20px;
+    color: transparent;
+}
+.blank-space-50{
+    height: 50px;
+    color: transparent;
+}
+.blank-space-70{
+    height: 70px;
+    color: transparent;
+}
+.page-title{
+    margin-bottom: 20px;
+}
+.hr-primary{
+    border-bottom: 1px solid #20c997;
 }

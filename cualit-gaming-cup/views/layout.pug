@@ -1,7 +1,56 @@
+
 doctype html
 html
   head
     title= "Cualit Gaming Cup"
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    script(src="js/bootstrap.js")
+
+  body.bg-dark.text-light
+    div.container
+      img(alter="Cualit Gaming Cup" src="../cgctitle.png" width="40%")
+
+      div.row.magin-top-70
+
+        div.col-9
+          block content
+        div.col-3
+          div.blank-space-50
+          div.nav.flex-column.nav-pills(id="v-pills-tab" role="tablist" aria-orientation="vertical")
+            a.nav-link.active( href="/players" ) Players
+            a.nav-link(href="/teams" ) Teams
+            a.nav-link( href="/qualifiers/new" ) New Qualifying
+            a.nav-link( href="/warmup" ) Warm Up
+
+
+
+
+
+  //
+  //  nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
+  //    a.navbar-brand Navbar
+  //    button.navbar-toggler( type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation")
+  //      span.navbar-toggler-icon
+  //
+  //    div.collapse.navbar-collapse(id="navbarNavDropdown")
+  //      ul.navbar-nav
+  //        li.nav-item.active
+  //          a.nav-link(href="#") Home
+  //            span.sr-only
+  //
+  //        li.nav-item
+  //          a.nav-link(href="#") Features
+  //
+  //        li.nav-item
+  //          a.nav-link(href="#") Pricing
+  //
+  //        li.nav-item.dropdown
+  //          a.nav-link.dropdown-toggle( href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Dropdown link
+  //          div.dropdown-menu( aria-labelledby="navbarDropdownMenuLink")
+  //            a.dropdown-item( href="#") Action
+  //            a.dropdown-item( href="#") Another action
+  //            a.dropdown-item( href="#") Something else here
+
+
+

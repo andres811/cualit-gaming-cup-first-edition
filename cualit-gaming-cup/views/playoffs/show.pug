@@ -1,25 +1,43 @@
 extends ../layout
 block content
 
-  h1= "Cualit Gaming Cup"
-  p= "Playoff: " + playoff._id
-  p= playoff.name
-  div.playoff-container
-      div.races-container
-        form(method='POST' action='/playoffs/'+ playoff._id)
-          each race, raceId in playoff.races
-            div.race
-              div.track
-                p= race.track
-              each participant in race.participants
-                div.participant
-                    div
-                      p= participant.player.name + " - " + participant.team.name
-                    div.score-input
-                      input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
-          button.btn.btn-primary(type='submit') Guardar
-      div.totals
-        b
-            p= playoff.teams[0].name + " " + (playoff.getTotals()[playoff.teams[0].name] || 0).toFixed(2)
-        b
-            p= playoff.teams[1].name + " " + (playoff.getTotals()[playoff.teams[1].name] || 0).toFixed(2)
+
+  //p= "Playoff: " + playoff._id
+  h4.page-title= playoff.name
+  hr.hr-primary
+  div
+      div.row
+          div.col-8
+            form(method='POST' action='/playoffs/'+ playoff._id)
+              each race, raceId in playoff.races
+                div.item-container
+                  div.row
+                    div.col-md-12
+                      b
+                        p.text-primary= race.track.toUpperCase()
+                  each participant in race.participants
+                    div.row
+                        div.col-6
+                          p= participant.player.name + " - " + participant.team.name
+                        div.col-6
+                          input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
+              button.btn.btn-primary(type='submit') Guardar
+          div.col-4
+              div.item-container
+                    b
+                        p.text-primary TOTALS
+                    hr.hr-primary
+                    div.row
+                        div.col-8
+                            b
+                                p= playoff.teams[0].name
+                        div.col-4
+                            b
+                                p= (playoff.getTotals()[playoff.teams[0].name] || 0).toFixed(2)
+                    div.row
+                        div.col-8
+                          b
+                              p= playoff.teams[1].name
+                        div.col-4
+                          b
+                              p= (playoff.getTotals()[playoff.teams[1].name] || 0).toFixed(2)
