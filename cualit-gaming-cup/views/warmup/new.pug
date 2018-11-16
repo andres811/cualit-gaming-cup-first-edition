@@ -4,7 +4,8 @@ block content
   h1= "Cualit Gaming Cup"
   form(method='POST' action='/warmup')
     each group, key in groups
-      ul= "Carrera " + key
+      p= key + " - " + getTrack()
+      ul
       each p in group
         li= p.name
         input.form-control(type='number' id='name' placeholder='Puntaje' name=key+'_'+p.id)

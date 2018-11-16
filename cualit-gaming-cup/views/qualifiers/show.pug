@@ -11,7 +11,7 @@ block content
             p= race.track
           each participant in race.participants
             div
-              p= participant.player.name
+              p= participant.player.name + " - " + participant.team.name
             div
               input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
       button.btn.btn-primary(type='submit') Guardar

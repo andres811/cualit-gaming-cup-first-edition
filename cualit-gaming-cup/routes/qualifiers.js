@@ -29,7 +29,7 @@ router.get('/new', function(req, res, next) {
       let race = {participants: []}
       for(let j = 0; j < Math.min(playerQtyPerRace, teams.length); j++) {
         let team = teams[j]
-        race.participants.push({player: team.players[i % team.players.length]})
+        race.participants.push({player: team.getPlayerForRace(), team: team})
         race.track = raceHelper.getRandomTrack()
       }
       races.push(race)
@@ -38,7 +38,7 @@ router.get('/new', function(req, res, next) {
     return qualifying.save()
   })
   .then(qualifying => {
-    res.render('qualifiers/new', {qualifying: qualifying})
+    res.render('qualifiers/show', {qualifying: qualifying})
   })
   .catch(e => {
     console.error(e)
@@ -49,7 +49,9 @@ router.post('/:id', function(req, res, next) {
   let newData = []
   let playersData = []
   let qualifying
-  Qualifying.findOne(ObjectId(req.params.id)).populate('races.participants.player')
+  Qualifying.findOne(ObjectId(req.params.id))
+  .populate('races.participants.player')
+  .populate('races.participants.team')
   .then(_qualifying => {
     qualifying = _qualifying
     _.each(req.body, (score, raceAndPlayerId) => {
@@ -95,7 +97,6 @@ router.post('/:id', function(req, res, next) {
               personal_scores: personalScores
             })
           }
-          console.log(team)
           return team.save()
         }))
     })
@@ -105,15 +106,17 @@ router.post('/:id', function(req, res, next) {
   })
   .then(() => {
 
-    res.render('qualifiers/new', {qualifying: qualifying})
+    res.render('qualifiers/show', {qualifying: qualifying})
   })
   .catch(e => {console.error(e)})
 })
 
 router.get('/:id', function(req, res, next) {
-  Qualifying.findOne(ObjectId(req.params.id)).populate('races.participants.player')
+  Qualifying.findOne(ObjectId(req.params.id))
+  .populate('races.participants.player')
+  .populate('races.participants.team')
   .then(qualifying => {
-    res.render('qualifiers/new', {qualifying: qualifying})
+    res.render('qualifiers/show', {qualifying: qualifying})
   })
   .catch(e => {console.error(e)})
 })
