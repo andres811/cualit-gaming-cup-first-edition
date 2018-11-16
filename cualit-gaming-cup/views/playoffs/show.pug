@@ -1,17 +1,24 @@
 extends ../layout
-
 block content
+
   h1= "Cualit Gaming Cup"
   p= "Playoff: " + playoff._id
-  div.races-container
-    form(method='POST' action='/playoffs/'+ playoff._id)
-      each race, raceId in playoff.races
-        div.race
-          div.track
-            p= race.track
-          each participant in race.participants
-            div
-              p= participant.player.name + " - " + participant.team.name
-            div
-              input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
-      button.btn.btn-primary(type='submit') Guardar
+  p= playoff.name
+  div.playoff-container
+      div.races-container
+        form(method='POST' action='/playoffs/'+ playoff._id)
+          each race, raceId in playoff.races
+            div.race
+              div.track
+                p= race.track
+              each participant in race.participants
+                div
+                  p= participant.player.name + " - " + participant.team.name
+                div
+                  input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
+          button.btn.btn-primary(type='submit') Guardar
+      div.totals
+        b
+            p= playoff.teams[0].name + " " + (playoff.getTotals()[playoff.teams[0].name] || 0)
+        b
+            p= playoff.teams[1].name + " " + (playoff.getTotals()[playoff.teams[1].name] || 0)

@@ -27,7 +27,6 @@ a {
 }
 
 .races-container {
-  padding: 5px;
   width: 600px;
 }
 
@@ -36,13 +35,28 @@ a {
   width: 100%;
   float: left;
   border: 1px solid black;
+  margin: 10px 0 0;
 }
 
 .race > div {
   float: left;
-  width: 50%;
+  width: 45%;
   height: 50px;
 }
 .track {
   width: 100% !important
+}
+
+.playoff-container {
+  width: 100%
+
+}
+
+.playoff-container > div {
+  width: 45%;
+  float: left;
+  padding: 20px 20px 0 0;
+}
+.totals {
+  text-align: center
 }

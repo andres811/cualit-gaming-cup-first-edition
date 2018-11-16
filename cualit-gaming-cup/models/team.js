@@ -15,7 +15,9 @@ let TeamSchema = new Schema({
         player: {ref: 'Player', type: ObjectId}
       }]
     }],
-    race_player_counter: {type: Number, default: -1}
+    race_player_counter: {type: Number, default: -1},
+    playoff_name: String,
+    playoff: {ref: 'Playoff', type: ObjectId}
 });
 
 TeamSchema.methods.getTotalWarmUpScore = function() {
