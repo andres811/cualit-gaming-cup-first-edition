@@ -10,6 +10,7 @@ var playersRouter = require('./routes/players');
 var warmupRouter = require('./routes/warmup');
 var teamsRouter = require('./routes/teams');
 var qualifiersRouter = require('./routes/qualifiers');
+var playoffsRouter = require('./routes/playoffs');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use('/players', playersRouter);
 app.use('/warmup', warmupRouter);
 app.use('/teams', teamsRouter);
 app.use('/qualifiers', qualifiersRouter);
+app.use('/playoffs', playoffsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

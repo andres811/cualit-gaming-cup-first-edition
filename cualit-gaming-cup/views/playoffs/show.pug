@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1= "Cualit Gaming Cup"
+  p= "Playoff: " + playoff._id
+  div.races-container
+    form(method='POST' action='/playoffs/'+ playoff._id)
+      each race, raceId in playoff.races
+        div.race
+          div.track
+            p= race.track
+          each participant in race.participants
+            div
+              p= participant.player.name + " - " + participant.team.name
+            div
+              input.form-control(type='text' id='score' placeholder='Puntaje' name=raceId + "_" +participant.player._id value=participant.score)
+      button.btn.btn-primary(type='submit') Guardar

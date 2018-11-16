@@ -6,7 +6,15 @@ module.exports = {
         'track3'
     ];
     var randomNumber = Math.floor(Math.random()*textArray.length);
-    console.log(textArray[randomNumber])
     return textArray[randomNumber]
+  },
+  getRandomBattleTrack: function() {
+      var textArray = [
+          'trackBattle1',
+          'trackBattle2',
+          'trackBattle3'
+      ];
+      var randomNumber = Math.floor(Math.random()*textArray.length);
+      return textArray[randomNumber]
   }
 }

@@ -14,7 +14,8 @@ let TeamSchema = new Schema({
         normalized_score: Number,
         player: {ref: 'Player', type: ObjectId}
       }]
-    }]
+    }],
+    race_player_counter: {type: Number, default: -1}
 });
 
 TeamSchema.methods.getTotalWarmUpScore = function() {
@@ -23,6 +24,11 @@ TeamSchema.methods.getTotalWarmUpScore = function() {
 
 TeamSchema.methods.getTotalScore = function() {
     return (this.scores || []).map(s => s.team_normalized_score).reduce((s1, s2) => s1 + s2, 0)
+}
+
+TeamSchema.methods.getPlayerForRace = function() {
+    this.race_player_counter ++
+    return this.players[this.race_player_counter % this.players.length]
 }
 
 module.exports = mongoose.model('Team', TeamSchema);

@@ -4,8 +4,8 @@ let mongoose = require('mongoose'),
 let ObjectId = Schema.Types.ObjectId
 let Race = require('./race')
 
-let QualifyingSchema = new Schema({
+let PlayoffSchema = new Schema({
     races: [Race.schema]
 });
 
-module.exports = mongoose.model('Qualifying', QualifyingSchema);
+module.exports = mongoose.model('Playoff', PlayoffSchema);
